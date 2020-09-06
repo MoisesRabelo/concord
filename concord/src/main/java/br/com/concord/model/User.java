@@ -1,35 +1,50 @@
 package br.com.concord.model;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String nick;
     private String email;
     private String password;
-    private String status;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "users_roles",
+			joinColumns = @JoinColumn(
+		            name = "users_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+				            name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public User() {
     }
-
-    public User(Long id, String name, String nick, String email, String password, String status) {
-
-        this.id = id;
+    
+    public User(String name, String nick, String email, String password, Collection<Role> roles) {
+    	super();
         this.name = name;
         this.nick = nick;
         this.email = email;
         this.password = password;
-        this.status = status;
+        this.roles = roles;
     }
 
 	public Long getId() {
@@ -72,12 +87,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getStatus() {
-		return status;
+	public Collection<Role> getRoles() {
+		return roles;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}    
-    
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}	
 }

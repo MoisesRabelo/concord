@@ -1,10 +1,11 @@
 package br.com.concord.service;
 
-import java.util.List;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import br.com.concord.model.User;
+import br.com.concord.web.dto.UserRegistrationDto;
 
-public interface IUserService {
+public interface IUserService extends UserDetailsService{
 	
-	List<User> findAll();
+	User save(UserRegistrationDto registrationDto);
 }
