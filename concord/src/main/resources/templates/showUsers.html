@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Concord - Users</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        <h2>List of users</h2>
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Nick</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Status</th>
+            </tr>
+            
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">Id</td>
+                <td th:text="${user.name}">Name</td>
+                <td th:text="${user.nick}">Population</td>
+                <td th:text="${user.email}">email</td>
+                <td th:text="${user.password}">password</td>
+                <td th:text="${user.status}">Status</td>
+            </tr>
+        </table>
+
+    </body>
+</html>
