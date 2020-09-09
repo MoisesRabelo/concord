@@ -37,9 +37,9 @@ public class UserService implements IUserService
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String nick) throws UsernameNotFoundException 
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
 	{
-		User user = userRepository.findByEmail(nick);
+		User user = userRepository.findByEmail(email);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
