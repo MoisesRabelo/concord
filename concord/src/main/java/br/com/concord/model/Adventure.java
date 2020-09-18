@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,6 +23,10 @@ public class Adventure
     private Long id;
 
     private String name;
+    
+    @ManyToOne
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    private User users_id;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
